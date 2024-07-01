@@ -26,3 +26,19 @@ Our benchmarks cover three main categories:
    - Directory operations (reading, writing, deleting)
 
 Each scenario is run 100 times for both Node.js and Bun to ensure statistical significance.
+
+## Benchmarking with Hyperfine
+
+This project uses [Hyperfine](https://github.com/sharkdp/hyperfine), a command-line benchmarking tool, to measure and compare the performance of Node.js and Bun across various scenarios.
+
+### Installation
+
+To install Hyperfine, follow the instructions on the [official Hyperfine GitHub page](https://github.com/sharkdp/hyperfine#installation).
+
+### Running Benchmarks
+
+To run a benchmark, use the following command structure:
+
+```bash
+hyperfine "cd bun_tests/simple && bun simpleLoop.js" "cd node_tests/simple && node simpleLoop.js" --warmup 5
+```
