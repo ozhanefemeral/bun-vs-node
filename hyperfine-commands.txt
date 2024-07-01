@@ -1,0 +1,2 @@
+# Simple Tasks
+hyperfine "cd bun_tests/simple && bun simpleLoop.js" "cd node_tests/simple && node simpleLoop.js" --warmup 5 --export-markdown RESULTS.md
