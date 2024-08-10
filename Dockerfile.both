@@ -1,0 +1,31 @@
+FROM ubuntu:latest
+
+# Install common dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    wget \
+    time \
+    unzip
+
+# Install Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash -
+RUN apt-get install -y nodejs
+
+# Install Bun
+RUN curl -fsSL https://bun.sh/install | bash
+
+# Install Hyperfine
+RUN wget https://github.com/sharkdp/hyperfine/releases/download/v1.15.0/hyperfine_1.15.0_amd64.deb
+RUN dpkg -i hyperfine_1.15.0_amd64.deb
+
+# Set up working directory
+WORKDIR /app
+COPY . .
+
+# Add Bun to PATH
+ENV PATH="/root/.bun/bin:${PATH}"
+
+# Verify installations
+RUN node --version
+RUN bun --version
+RUN hyperfine --version
