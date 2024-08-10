@@ -1,3 +1,6 @@
+# Ignore large test data
+tests/file/large_data.json
+
 # Ignore benchmark results
 tests/*/*_results.md
 tests/*/*_resources.txt
