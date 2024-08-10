@@ -2,9 +2,7 @@
 tests/file/large_data.json
 
 # Ignore benchmark results
-tests/*/*_results.md
-tests/*/*_resources.txt
-tests/*/*_results.json
+results/
 
 # Ignore node modules
 node_modules/
