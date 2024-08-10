@@ -1,0 +1,7 @@
+# Run these commands after building the Dockerfile
+
+# Bun
+docker run --cpus=1 --memory=1g --rm -v $(pwd):/app bun-test bash /app/run_tests.sh
+
+# Node
+docker run --cpus=1 --memory=1g --rm -v $(pwd):/app node-test bash /app/run_tests.sh

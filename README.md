@@ -2,43 +2,35 @@
 
 ## Goal
 
-This project aims to compare the performance of Node.js and Bun runtimes across various common programming tasks. By running identical scenarios on both runtimes, we can gain insights into their relative strengths and weaknesses.
+This project aims to compare the performance of Node.js and Bun runtimes across various common programming tasks. By running identical scenarios on both runtimes, we can gain insights into their relative strengths and weaknesses. 
 
-## Test Scenarios
+## Project Structure
 
-Our benchmarks cover three main categories:
+- `Dockerfile.bun`: Docker configuration for Bun environment
+- `Dockerfile.node`: Docker configuration for Node.js environment
+- `tests/basic/`: Directory containing test scripts
+  - `while_loop.js`: Simple while loop test
+  - `fibonacci.js`: Recursive Fibonacci calculation test
+- `run_tests.sh`: Script to run benchmarks in Docker containers
+- `hyperfine-commands.txt`: File storing useful Hyperfine commands
 
-1. **Simple Tasks**
+## Running Benchmarks
 
-   - Execute a simple loop 1 million times
-   - Execute a function that performs string operations 1 million times
-   - Execute a function with heavy recursion
-
-2. **Mathematical Operations**
-
-   - Calculate π to 1 million digits
-   - Sort 1 million random numbers
-   - Perform matrix multiplication on large matrices
-
-3. **File I/O Operations**
-   - Read/Write operations on large files (1GB)
-   - Read/Write operations on multiple small files
-   - Directory operations (reading, writing, deleting)
-
-Each scenario is run 100 times for both Node.js and Bun to ensure statistical significance.
-
-## Benchmarking with Hyperfine
-
-This project uses [Hyperfine](https://github.com/sharkdp/hyperfine), a command-line benchmarking tool, to measure and compare the performance of Node.js and Bun across various scenarios.
-
-### Installation
-
-To install Hyperfine, follow the instructions on the [official Hyperfine GitHub page](https://github.com/sharkdp/hyperfine#installation).
-
-### Running Benchmarks
-
-To run a benchmark, use the following command structure:
+To run the benchmarks, use the following commands:
 
 ```bash
-hyperfine "cd bun_tests/simple && bun simpleLoop.js" "cd node_tests/simple && node simpleLoop.js" --warmup 5
+docker build -f Dockerfile.bun -t bun-test .
+docker build -f Dockerfile.node -t node-test .
+docker run --cpus=1 --memory=1g --rm -v $(pwd):/app bun-test bash /app/run_tests.sh
+docker run --cpus=1 --memory=1g --rm -v $(pwd):/app node-test bash /app/run_tests.sh
 ```
+
+These commands are also stored in `commands.txt`. Bulding the Dockerfiles before running tests is necessary.
+
+## Benchmarking Tool
+
+This project uses [Hyperfine](https://github.com/sharkdp/hyperfine) for benchmarking, which is installed in the Docker containers.
+
+## Results
+
+Benchmark results are saved as Markdown files in the `tests/basic/` directory. Resource usage data is saved as text files in the same location.
