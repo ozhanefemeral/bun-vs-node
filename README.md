@@ -29,10 +29,18 @@ bun generate_large_json.js
 To run the benchmarks, use the following commands:
 
 ```bash
+# Build the Docker images
+
+# Building only the last image is enough for running the tests
+
 docker build -f Dockerfile.bun -t bun-test .
 docker build -f Dockerfile.node -t node-test .
-docker run --cpus=1 --memory=1g --rm -v $(pwd):/app bun-test bash /app/run_tests.sh
-docker run --cpus=1 --memory=1g --rm -v $(pwd):/app node-test bash /app/run_tests.sh
+docker build -f Dockerfile.both -t benchmark-test .
+
+# Run the tests
+
+# Feel free to change the CPU and memory values, or use different images
+docker run --cpus=6 --memory=12g --rm -v $(pwd):/app benchmark-test bash /app/run_tests.sh
 ```
 
 Or you can adjust the cpu and the memory allocated to the Docker.
