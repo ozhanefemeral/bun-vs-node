@@ -1,4 +1,4 @@
-const filePath = '/app/tests/file/large_data.json';
+const filePath = './large_data.json';
 const file = Bun.file(filePath);
 
 const data = await file.json();
