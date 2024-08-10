@@ -1,4 +1,4 @@
-const fs = require('fs');
+import { appendFileSync, writeFileSync } from 'fs';
 
 function generateData(count) {
   let data = '[';
@@ -36,13 +36,13 @@ function generateData(count) {
     
     // Write to file every 10000 objects to manage memory
     if (i % 10000 === 0 && i > 0) {
-      fs.appendFileSync('large_data.json', data);
+      appendFileSync('large_data.json', data);
       data = '';
       console.log(`Generated ${i} objects...`);
     }
   }
   data += ']';
-  fs.appendFileSync('large_data.json', data);
+  appendFileSync('large_data.json', data);
 }
 
 function getRandomName() {
@@ -56,9 +56,9 @@ function getRandomParagraph() {
   return Array.from({length}, () => words[Math.floor(Math.random() * words.length)]).join(' ');
 }
 
-const numberOfObjects = 1000000; // This will generate a file of about 1GB
+const numberOfObjects = 400000; 
 console.time('JSON Generation');
-fs.writeFileSync('large_data.json', ''); // Initialize the file
+writeFileSync('large_data.json', ''); // Initialize the file
 generateData(numberOfObjects);
 console.timeEnd('JSON Generation');
 console.log(`Generated JSON file with ${numberOfObjects} objects.`);
