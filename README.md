@@ -16,6 +16,16 @@ This project aims to compare the performance of Node.js and Bun runtimes across 
 
 ## Running Benchmarks
 
+### Prerequisites
+
+You should run generate_large_json.js to create a large JSON file for the tests. This file is not included in the repository due to its size. 
+
+```bash
+node generate_large_json.js
+# or
+bun generate_large_json.js
+```
+
 To run the benchmarks, use the following commands:
 
 ```bash
