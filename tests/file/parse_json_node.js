@@ -1,7 +1,7 @@
-const fs = require('fs');
+import { readFileSync } from 'fs';
 
 const filePath = '/app/tests/file/large_data.json';
-const jsonString = fs.readFileSync(filePath, 'utf8');
+const jsonString = readFileSync(filePath, 'utf8');
 const data = JSON.parse(jsonString);
 
 let totalBalance = 0;
