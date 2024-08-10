@@ -25,6 +25,18 @@ docker run --cpus=1 --memory=1g --rm -v $(pwd):/app bun-test bash /app/run_tests
 docker run --cpus=1 --memory=1g --rm -v $(pwd):/app node-test bash /app/run_tests.sh
 ```
 
+Or you can adjust the cpu and the memory allocated to the Docker.
+
+```
+docker run \
+  --cpus=6 \
+  --memory=24g \
+  --rm \
+  -v $(pwd):/app \
+  benchmark-test \
+  bash /app/run_tests.sh`
+```
+
 These commands are also stored in `commands.txt`. Bulding the Dockerfiles before running tests is necessary.
 
 ## Benchmarking Tool
