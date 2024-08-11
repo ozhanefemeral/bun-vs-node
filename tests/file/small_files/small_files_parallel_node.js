@@ -1,11 +1,12 @@
 import fs from 'fs';
-import path from 'path';
+import path, { join } from 'path';
 import { promisify } from 'util';
 
 const readdir = promisify(fs.readdir);
 const readFile = promisify(fs.readFile);
 
-const directoryPath = '../../../test_data/small_files';
+const testDataPath = process.env.TEST_DATA_PATH || '/app/test_data';
+const directoryPath = join(testDataPath, 'small_files');
 
 async function processFilesParallel() {
   const files = await readdir(directoryPath);

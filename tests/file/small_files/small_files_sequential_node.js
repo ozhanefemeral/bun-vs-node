@@ -1,7 +1,8 @@
 import fs from 'fs';
-import path from 'path';
+import path, { join } from 'path';
 
-const directoryPath = '../../../test_data/small_files';
+const testDataPath = process.env.TEST_DATA_PATH || '/app/test_data';
+const directoryPath = join(testDataPath, 'small_files');
 
 function processFilesSequentially() {
   const files = fs.readdirSync(directoryPath);

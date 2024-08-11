@@ -1,7 +1,8 @@
 import { readdir } from 'fs/promises';
 import { join } from 'path';
 
-const directoryPath = '../../../test_data/small_files';
+const testDataPath = process.env.TEST_DATA_PATH || '/app/test_data';
+const directoryPath = join(testDataPath, 'small_files');
 
 async function processFilesParallel() {
   const files = await readdir(directoryPath);

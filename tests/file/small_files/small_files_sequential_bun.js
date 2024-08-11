@@ -1,16 +1,17 @@
 import { readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 
-const smallFilesDir = '../../../test_data/small_files';
+const testDataPath = process.env.TEST_DATA_PATH || '/app/test_data';
+const directoryPath = join(testDataPath, 'small_files');
 
 async function processFilesSequentially() {
-    const files = await readdir(smallFilesDir);
+    const files = await readdir(directoryPath);
     let totalBalance = 0;
     let activeUsers = 0;
     let totalAge = 0;
 
     for (const file of files) {
-        const filePath = join(smallFilesDir, file);
+        const filePath = join(directoryPath, file);
 
         const data = await Bun.file(filePath).json();
 
