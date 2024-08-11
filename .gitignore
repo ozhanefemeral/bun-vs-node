@@ -1,8 +1,8 @@
 # Ignore test data
-test_data/
+test_data
 
 # Ignore benchmark results
-results/
+results
 
 # Ignore node modules
 node_modules/
