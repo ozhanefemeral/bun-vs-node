@@ -1,5 +1,5 @@
 # Build the Dockerfile for the both the bun runtimes in the same container
-docker build -f Dockerfile.both -t benchmark-test
+docker build -f Dockerfile.both -t benchmark-test .
 
 # Run the container
-docker run --cpus=6 --memory=12g --rm -v $(pwd):/app benchmark-test bash /app/run_tests.sh
+docker run --cpus=6 --memory=12g --rm -v $(pwd):/app benchmark-test bash /app/scripts/run_tests.sh
