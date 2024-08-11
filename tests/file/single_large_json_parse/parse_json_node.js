@@ -1,6 +1,9 @@
 import { readFileSync } from 'fs';
 
-const filePath = './large_data.json';
+import path from 'path';
+const testDataPath = process.env.TEST_DATA_PATH || '/app/test_data';
+const filePath = path.join(testDataPath, 'large_data.json');
+
 const jsonString = readFileSync(filePath, 'utf8');
 const data = JSON.parse(jsonString);
 
