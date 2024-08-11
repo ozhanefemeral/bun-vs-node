@@ -1,7 +1,12 @@
-import { appendFileSync, writeFileSync } from 'fs';
+const outputDir = '../test_data';
+const filePath = `${outputDir}/large_data.json`;
 
-function generateData(count) {
-  let data = '[';
+async function generateData(count) {
+  const file = Bun.file(filePath);
+  const writer = file.writer();
+
+  await writer.write('[');
+
   for (let i = 0; i < count; i++) {
     const obj = {
       _id: Math.random().toString(36).substr(2, 9),
@@ -31,18 +36,16 @@ function generateData(count) {
       favoriteFruit: ['apple', 'banana', 'strawberry'][Math.floor(Math.random() * 3)]
     };
     
-    data += JSON.stringify(obj);
-    if (i < count - 1) data += ',';
+    await writer.write(JSON.stringify(obj) + (i < count - 1 ? ',' : ''));
     
-    // Write to file every 10000 objects to manage memory
+    // Log progress every 10000 objects
     if (i % 10000 === 0 && i > 0) {
-      appendFileSync('large_data.json', data);
-      data = '';
       console.log(`Generated ${i} objects...`);
     }
   }
-  data += ']';
-  appendFileSync('large_data.json', data);
+
+  await writer.write(']');
+  await writer.end();
 }
 
 function getRandomName() {
@@ -57,8 +60,8 @@ function getRandomParagraph() {
 }
 
 const numberOfObjects = 400000; 
+
 console.time('JSON Generation');
-writeFileSync('large_data.json', ''); // Initialize the file
-generateData(numberOfObjects);
+await generateData(numberOfObjects);
 console.timeEnd('JSON Generation');
-console.log(`Generated JSON file with ${numberOfObjects} objects.`);
+console.log(`Generated JSON file with ${numberOfObjects} objects in ${filePath}`);

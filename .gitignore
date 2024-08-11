@@ -1,5 +1,5 @@
-# Ignore large test data
-large_data.json
+# Ignore test data
+test_data/
 
 # Ignore benchmark results
 results/
