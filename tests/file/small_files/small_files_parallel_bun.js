@@ -26,11 +26,6 @@ async function processFilesParallel() {
 
   const averageBalance = totalBalance / totalProcessed;
   const averageAge = totalAge / totalProcessed;
-
-  console.log(`Processed ${totalProcessed} items from ${files.length} files`);
-  console.log(`Average Balance: $${averageBalance.toFixed(2)}`);
-  console.log(`Active Users: ${activeUsers}`);
-  console.log(`Average Age: ${averageAge.toFixed(2)}`);
 }
 
 console.time('Parallel Processing');

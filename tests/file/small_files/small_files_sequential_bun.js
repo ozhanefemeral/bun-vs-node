@@ -23,9 +23,6 @@ async function processFilesSequentially() {
     }
 
     const totalUsers = files.length * 5; // Assuming each file has 5 items
-    console.log(`Average Balance: $${(totalBalance / totalUsers).toFixed(2)}`);
-    console.log(`Active Users: ${activeUsers}`);
-    console.log(`Average Age: ${(totalAge / totalUsers).toFixed(2)}`);
 }
 
 console.time('Sequential Processing');
