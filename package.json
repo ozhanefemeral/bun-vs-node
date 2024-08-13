@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "benchmark": "docker run --cpus=6 --memory=12g --rm -v $(pwd):/app benchmark-test bash /app/scripts/run_tests.sh"
   },
   "keywords": [],
   "author": "",
