@@ -18,9 +18,21 @@ RUN curl -fsSL https://bun.sh/install | bash
 RUN wget https://github.com/sharkdp/hyperfine/releases/download/v1.15.0/hyperfine_1.15.0_amd64.deb
 RUN dpkg -i hyperfine_1.15.0_amd64.deb
 
+# Install Go (required for Bombardier)
+RUN apt-get update && apt-get install -y golang-go
+
+# Install Bombardier
+RUN go install github.com/codesenberg/bombardier@latest
+
+# Add Go binaries to PATH
+ENV PATH="/root/go/bin:${PATH}"
+
 # Set up working directory
 WORKDIR /app
 COPY . .
+
+# Set correct permissions for scripts
+RUN chmod +x /app/scripts/*.sh
 
 # Add Bun to PATH
 ENV PATH="/root/.bun/bin:${PATH}"
@@ -29,3 +41,7 @@ ENV PATH="/root/.bun/bin:${PATH}"
 RUN node --version
 RUN bun --version
 RUN hyperfine --version
+RUN bombardier --version
+
+# Clean up
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
