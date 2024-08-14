@@ -4,7 +4,11 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "benchmark": "docker run --cpus=6 --memory=12g --rm -v $(pwd):/app benchmark-test bash /app/scripts/run_tests.sh"
+    "benchmark": "docker run --cpus=6 --memory=12g --rm -v $(pwd):/app benchmark-test bash /app/scripts/run_tests.sh",
+    "build": "rm -rf test_data && docker build -f Dockerfile.both -t benchmark-test .",
+    "benchmark-basic": "docker run --cpus=6 --memory=12g --rm -v $(pwd):/app benchmark-test bash /app/scripts/run_basic_tests.sh",
+    "benchmark-file": "docker run --cpus=6 --memory=12g --rm -v $(pwd):/app benchmark-test bash /app/scripts/run_file_tests.sh",
+    "benchmark-http": "docker run --cpus=6 --memory=12g --rm -v $(pwd):/app benchmark-test bash /app/scripts/run_http_tests.sh"
   },
   "keywords": [],
   "author": "",
