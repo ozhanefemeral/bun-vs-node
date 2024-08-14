@@ -1,9 +1,6 @@
-// File: /app/tests/file/write_small_files/write_small_files_bun.js
-
-import { writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
-const numberOfFiles = 10000;
+const numberOfFiles = 100000;
 const itemsPerFile = 5;
 const outputDir = '/app/test_data/write_small_files';
 

@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-const numberOfFiles = 10000;
+const numberOfFiles = 100000;
 const itemsPerFile = 5;
 const outputDir = '/app/test_data/write_small_files';
 

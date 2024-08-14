@@ -1,6 +1,6 @@
-const numberOfFiles = 10000;
+const numberOfFiles = 100000;
 const itemsPerFile = 5;
-const outputDir = '../test_data/small_files';
+const outputDir = '/app/test_data/small_files';
 
 function generateRandomItem() {
   return {

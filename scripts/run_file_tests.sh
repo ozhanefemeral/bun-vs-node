@@ -11,8 +11,8 @@ run_file_benchmark() {
     mkdir -p "/app/results/$test_category"
     
     hyperfine \
-        --warmup 2 \
-        --min-runs 10 \
+        --warmup 3 \
+        --min-runs 100 \
         --export-markdown "/app/results/$test_category/${test_name}_results.md" \
         --export-json "/app/results/$test_category/${test_name}_results.json" \
         --show-output \
