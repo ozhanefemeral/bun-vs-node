@@ -1,14 +1,20 @@
+import { file } from 'bun';
+
 const server = Bun.serve({
   port: 3002,
-  fetch(req) {
+  async fetch(req) {
     const url = new URL(req.url);
-    switch (url.pathname) {
-      case '/':
-        return new Response("Home");
-      case '/about':
-        return new Response("About");
-      default:
-        return new Response("Not Found", { status: 404 });
+    if (url.pathname === '/') {
+      try {
+        const content = await file('index.html').text();
+        return new Response(content, {
+          headers: { 'Content-Type': 'text/html' },
+        });
+      } catch (error) {
+        return new Response('Internal Server Error', { status: 500 });
+      }
+    } else {
+      return new Response('Not Found', { status: 404 });
     }
   },
 });

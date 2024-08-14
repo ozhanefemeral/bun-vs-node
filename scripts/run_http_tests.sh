@@ -55,10 +55,9 @@ fi
 mkdir -p "/app/results/http"
 
 # Run benchmarks for HTTP tests
-run_http_benchmark "simple_server" 3000 "/" "/app/tests/http/simple_server_bun.js" "/app/tests/http/simple_server_node.js"
+run_http_benchmark "simple_server" 3000 "/" "/app/tests/http/find_and_return_json_bun.js" "/app/tests/http/find_and_return_json_node.js"
 run_http_benchmark "json_response" 3001 "/" "/app/tests/http/json_response_bun.js" "/app/tests/http/json_response_node.js"
 run_http_benchmark "routing_home" 3002 "/" "/app/tests/http/routing_bun.js" "/app/tests/http/routing_node.js"
-run_http_benchmark "routing_about" 3002 "/about" "/app/tests/http/routing_bun.js" "/app/tests/http/routing_node.js"
 
 echo "All HTTP tests completed. Merging JSON results..."
 

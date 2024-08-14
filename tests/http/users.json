@@ -1,0 +1,39 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Alice Johnson",
+      "email": "alice@example.com",
+      "role": "admin",
+      "lastLogin": "2023-08-01T10:30:00Z"
+    },
+    {
+      "id": 2,
+      "name": "Bob Smith",
+      "email": "bob@example.com",
+      "role": "user",
+      "lastLogin": "2023-07-30T15:45:00Z"
+    },
+    {
+      "id": 3,
+      "name": "Charlie Brown",
+      "email": "charlie@example.com",
+      "role": "user",
+      "lastLogin": "2023-08-02T09:15:00Z"
+    },
+    {
+      "id": 4,
+      "name": "Diana Ross",
+      "email": "diana@example.com",
+      "role": "manager",
+      "lastLogin": "2023-07-29T11:20:00Z"
+    },
+    {
+      "id": 5,
+      "name": "Ethan Hunt",
+      "email": "ethan@example.com",
+      "role": "user",
+      "lastLogin": "2023-08-03T14:10:00Z"
+    }
+  ]
+}
