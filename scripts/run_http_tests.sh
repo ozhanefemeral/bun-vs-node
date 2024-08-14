@@ -62,7 +62,7 @@ run_http_benchmark "routing_about" 3002 "/about" "/app/tests/http/routing_bun.js
 
 echo "All HTTP tests completed. Merging JSON results..."
 
-# Run the Bun script to merge JSON results
-bun /app/scripts/merge_json_results.js
+# Run the Bun script to merge HTTP results
+bun /app/utils/merge_http_results.js
 
 echo "All HTTP tests completed and results processed. Results are saved in their respective directories under /app/results/http."

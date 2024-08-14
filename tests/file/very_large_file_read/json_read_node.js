@@ -1,7 +1,7 @@
 import { createReadStream } from 'fs';
 import { createInterface } from 'readline';
 
-const filePath = '/app/test_data/large_data.json';
+const filePath = '/app/test_data/very_large_data.json';
 
 async function readLargeJSON() {
   const fileStream = createReadStream(filePath);

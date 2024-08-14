@@ -1,4 +1,4 @@
-const outputDir = '../test_data';
+const outputDir = '/app/test_data';
 const filePath = `${outputDir}/large_data.json`;
 
 async function generateData(count) {
@@ -27,17 +27,17 @@ async function generateData(count) {
       registered: new Date(Date.now() - Math.random() * 315569260000).toISOString(),
       latitude: (Math.random() * 180 - 90).toFixed(6),
       longitude: (Math.random() * 360 - 180).toFixed(6),
-      tags: Array.from({length: 7}, () => getRandomName()),
-      friends: Array.from({length: 3}, (_, index) => ({
+      tags: Array.from({ length: 7 }, () => getRandomName()),
+      friends: Array.from({ length: 3 }, (_, index) => ({
         id: index,
         name: `${getRandomName()} ${getRandomName()}`
       })),
       greeting: `Hello, ${getRandomName()}! You have ${Math.floor(Math.random() * 10) + 1} unread messages.`,
       favoriteFruit: ['apple', 'banana', 'strawberry'][Math.floor(Math.random() * 3)]
     };
-    
+
     await writer.write(JSON.stringify(obj) + (i < count - 1 ? ',' : ''));
-    
+
     // Log progress every 10000 objects
     if (i % 10000 === 0 && i > 0) {
       console.log(`Generated ${i} objects...`);
@@ -56,10 +56,10 @@ function getRandomName() {
 function getRandomParagraph() {
   const words = ['lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit', 'sed', 'do', 'eiusmod', 'tempor', 'incididunt', 'ut', 'labore', 'et', 'dolore', 'magna', 'aliqua'];
   const length = Math.floor(Math.random() * 50) + 20;
-  return Array.from({length}, () => words[Math.floor(Math.random() * words.length)]).join(' ');
+  return Array.from({ length }, () => words[Math.floor(Math.random() * words.length)]).join(' ');
 }
 
-const numberOfObjects = 400000; 
+const numberOfObjects = 400000;
 
 console.time('JSON Generation');
 await generateData(numberOfObjects);

@@ -1,4 +1,4 @@
-const filePath = '/app/test_data/large_data.csv';
+const filePath = '/app/test_data/very_large_data.csv';
 
 async function readLargeCSV() {
   const file = Bun.file(filePath);
