@@ -1,9 +1,5 @@
-import fs from 'fs';
-import path, { join } from 'path';
-import { promisify } from 'util';
-
-const readdir = promisify(fs.readdir);
-const readFile = promisify(fs.readFile);
+import { readdir, readFile } from 'fs/promises';
+import { join } from 'path';
 
 const testDataPath = process.env.TEST_DATA_PATH || '/app/test_data';
 const directoryPath = join(testDataPath, 'small_files');
@@ -11,7 +7,7 @@ const directoryPath = join(testDataPath, 'small_files');
 async function processFilesParallel() {
   const files = await readdir(directoryPath);
   const fileContents = await Promise.all(
-    files.map(file => readFile(path.join(directoryPath, file), 'utf8').then(JSON.parse))
+    files.map(file => readFile(join(directoryPath, file)).then(JSON.parse))
   );
 
   let totalBalance = 0;
