@@ -7,9 +7,9 @@ RUN apt-get update && apt-get install -y \
     time \
     unzip
 
-# Install Node.js
-RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash -
-RUN apt-get install -y nodejs
+# Install Node.js (specific version 20.16.0)
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+RUN apt-get install -y nodejs=20.16.0-1nodesource1
 
 # Install Bun
 RUN curl -fsSL https://bun.sh/install | bash
