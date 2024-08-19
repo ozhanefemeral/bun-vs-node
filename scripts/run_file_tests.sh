@@ -34,9 +34,30 @@ run_file_benchmark() {
 mkdir -p "/app/results/file"
 
 echo "Generating test files..."
-bun /app/utils/generate_very_large_files.js
-bun /app/utils/generate_small_files.js
-bun /app/utils/generate_large_json.js
+
+# Check if both very_large_data.csv and very_large_data.json exist, if not generate them
+if [ ! -f "/app/test_data/very_large_data.csv" ] || [ ! -f "/app/test_data/very_large_data.json" ]; then
+    echo "Generating very_large_data.csv and very_large_data.json..."
+    bun /app/utils/generate_very_large_files.js
+else
+    echo "Skipping generation of very_large_data.csv and very_large_data.json (both already exist)"
+fi
+
+# Check if small_files directory exists, if not generate it
+if [ ! -d "/app/test_data/small_files" ]; then
+    echo "Generating small_files directory..."
+    bun /app/utils/generate_small_files.js
+else
+    echo "Skipping generation of small_files (directory already exists)"
+fi
+
+# Check if large_data.json exists, if not generate it
+if [ ! -f "/app/test_data/large_data.json" ]; then
+    echo "Generating large_data.json..."
+    bun /app/utils/generate_large_json.js
+else
+    echo "Skipping generation of large_data.json (file already exists)"
+fi
 
 echo "Starting read tests..."
 
