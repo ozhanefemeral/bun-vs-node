@@ -1,46 +1,52 @@
 #!/bin/bash
 
 # Configuration
-CONNECTIONS=125
-REQUESTS=100000
-DURATION="10s"
+CONNECTIONS=1250
+REQUESTS=1000000
+
+BUN_IP="164.92.132.234"
+NODE_IP="64.226.107.21"
+PORT=6693
+
+# Assume we have 1,000,000 users (adjust this number if needed)
+MAX_USER_ID=1000000
+
+mkdir -p "/app/results/http"
 
 run_http_benchmark() {
     local test_name=$1
-    local port=$2
-    local path=$3
-    local bun_script=$4
-    local node_script=$5
+    local path=$2
+    local query_params=$3
     
     echo "Running benchmark for $test_name"
     
     mkdir -p "/app/results/http/$test_name"
     
-    # Start Bun server
-    bun $bun_script &
-    BUN_PID=$!
-    sleep 2  # Give the server time to start
-
+    local full_path="$path"
+    if [[ -n "$query_params" ]]; then
+        full_path="${path}?${query_params}"
+    fi
+    
+    # Generate a random user ID for user API test
+    if [[ "$test_name" == *"user_populated"* ]]; then
+        local bun_random_id=$((RANDOM % MAX_USER_ID + 1))
+        local node_random_id=$((RANDOM % MAX_USER_ID + 1))
+        bun_full_path="${full_path}${bun_random_id}"
+        node_full_path="${full_path}${node_random_id}"
+    else
+        bun_full_path=$full_path
+        node_full_path=$full_path
+    fi
+    
     # Run Bombardier for Bun (JSON output)
-    if ! bombardier -c $CONNECTIONS -n $REQUESTS -d $DURATION -l -p r -o json http://localhost:$port$path > "/app/results/http/$test_name/${test_name}_bun_bombardier.json" 2>&1; then
+    if ! bombardier -c $CONNECTIONS -n $REQUESTS -l -p r -o json "http://$BUN_IP:$PORT$bun_full_path" > "/app/results/http/$test_name/${test_name}_bun_bombardier.json" 2>&1; then
         echo "Error running Bombardier for Bun test: $test_name" >&2
     fi
     
-    # Stop Bun server
-    kill $BUN_PID
-    
-    # Start Node server
-    node $node_script &
-    NODE_PID=$!
-    sleep 2  # Give the server time to start
-
     # Run Bombardier for Node (JSON output)
-    if ! bombardier -c $CONNECTIONS -n $REQUESTS -d $DURATION -l -p r -o json http://localhost:$port$path > "/app/results/http/$test_name/${test_name}_node_bombardier.json" 2>&1; then
+    if ! bombardier -c $CONNECTIONS -n $REQUESTS -l -p r -o json "http://$NODE_IP:$PORT$node_full_path" > "/app/results/http/$test_name/${test_name}_node_bombardier.json" 2>&1; then
         echo "Error running Bombardier for Node test: $test_name" >&2
     fi
-    
-    # Stop Node server
-    kill $NODE_PID
     
     echo "HTTP benchmark for $test_name completed. Results saved in /app/results/http/$test_name/"
 }
@@ -55,13 +61,15 @@ fi
 mkdir -p "/app/results/http"
 
 # Run benchmarks for HTTP tests
-run_http_benchmark "simple_server" 3000 "/" "/app/tests/http/find_and_return_json_bun.js" "/app/tests/http/find_and_return_json_node.js"
-run_http_benchmark "json_response" 3001 "/" "/app/tests/http/json_response_bun.js" "/app/tests/http/json_response_node.js"
-run_http_benchmark "routing_home" 3002 "/" "/app/tests/http/routing_bun.js" "/app/tests/http/routing_node.js"
+run_http_benchmark "static_file_index" "/index.html"
+run_http_benchmark "api_user_populated_random" "/api/user" "id="
+run_http_benchmark "api_movies_query_genre" "/api/movies" "genre=sci-fi"
+run_http_benchmark "api_movies_query_date_genre" "/api/movies" "date=1640995200000&genre=sci-fi"
+run_http_benchmark "api_movies_query_date" "/api/movies" "date=854541091"
 
 echo "All HTTP tests completed. Merging JSON results..."
 
-# Run the Bun script to merge HTTP results
-bun /app/utils/merge_http_results.js
+# Run the Node script to merge HTTP results
+node /app/utils/merge_http_results.js
 
 echo "All HTTP tests completed and results processed. Results are saved in their respective directories under /app/results/http."
