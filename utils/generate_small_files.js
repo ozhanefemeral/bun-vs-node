@@ -18,7 +18,6 @@ async function generateSmallFile(fileIndex) {
   const fileName = `data_${fileIndex.toString().padStart(4, '0')}.json`;
   const filePath = `${outputDir}/${fileName}`;
   await Bun.write(filePath, JSON.stringify(items, null, 2));
-  console.log(`Generated ${fileName}`);
 }
 
 console.time('JSON Generation');
