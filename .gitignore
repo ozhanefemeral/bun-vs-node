@@ -11,6 +11,3 @@ bun.lockb
 
 # Ignore any log files
 *.log
-
-# Ignore Docker build context
-.dockerignore
