@@ -6,6 +6,8 @@ results
 
 # Ignore node modules
 node_modules/
+package-lock.json
+bun.lockb
 
 # Ignore any log files
 *.log
