@@ -24,16 +24,8 @@ run_basic_benchmark() {
     /usr/bin/time -v node $script 2>&1 | tee "/app/results/$test_name/${test_name}_node_resources.txt"
 }
 
-# Ensure both Bun and Node.js are available
-if ! command -v bun &> /dev/null || ! command -v node &> /dev/null; then
-    echo "Both Bun and Node.js are required to run these tests. Exiting."
-    exit 1
-fi
-
-# Create main results directory
 mkdir -p "/app/results/basic"
 
-# Run benchmarks for basic tests
 run_basic_benchmark "while_loop" "/app/tests/basic/while_loop.js"
 run_basic_benchmark "fibonacci" "/app/tests/basic/fibonacci.js"
 

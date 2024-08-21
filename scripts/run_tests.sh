@@ -5,6 +5,11 @@ BASE_DIR="/app/scripts"
 
 chmod +x $BASE_DIR/*.sh
 
+if ! command -v bun &> /dev/null || ! command -v node &> /dev/null; then
+    echo "Both Bun and Node.js are required to run these tests. Exiting."
+    exit 1
+fi
+
 echo "Starting all benchmarks..."
 
 echo "Running basic tests..."
