@@ -1,9 +1,7 @@
 #!/bin/bash
 
-# Set the base directory to the root of the repo
 BASE_DIR="$(pwd)"
 
-# Function to run benchmark for package installation
 run_package_install_benchmark() {
     local project=$1
     
@@ -53,7 +51,6 @@ run_package_install_benchmark() {
     } | tee "$BASE_DIR/results/package_install/$project/resource_usage.txt"
 }
 
-# Function to run benchmark for single package installation in bloated project
 run_single_package_install_benchmark() {
     echo "Running benchmark for bloated-project single package install"
     
@@ -83,15 +80,12 @@ run_single_package_install_benchmark() {
     } | tee "$BASE_DIR/results/package_install/bloated-project/resource_usage.txt"
 }
 
-# Array of projects to test
 projects=("nextjs" "svelte" "expo-react-native")
 
-# Run benchmarks for each project
 for project in "${projects[@]}"; do
     run_package_install_benchmark "$project"
 done
 
-# Run benchmarks for bloated project single package install
 run_single_package_install_benchmark
 
 echo "All package installation benchmarks completed. Results are saved in their respective directories under $BASE_DIR/results/package_install."
