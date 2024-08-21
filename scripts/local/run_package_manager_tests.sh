@@ -88,4 +88,4 @@ done
 
 run_single_package_install_benchmark
 
-echo "All package installation benchmarks completed. Results are saved in their respective directories under $BASE_DIR/results/package_install."
+echo "All package installation benchmarks completed. Results are saved in their respective directories under $BASE_DIR/results/package_install/local."

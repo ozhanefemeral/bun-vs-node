@@ -1,21 +1,16 @@
 #!/bin/bash
 
-# Set the base directory
 BASE_DIR="/app/scripts"
 
-# Function to run benchmark for package installation
 run_package_install_benchmark() {
     local project=$1
     
     echo "Running benchmarks for $project"
     
-    # Create results directory
     mkdir -p "/app/results/package_install/$project"
     
-    # Prepare command for with lock files
     local prepare_with_lock="rm -rf /app/tests/package_install/$project/node_modules"
     
-    # Prepare command for without lock files
     local prepare_without_lock="rm -rf /app/tests/package_install/$project/node_modules /app/tests/package_install/$project/bun.lockb /app/tests/package_install/$project/package-lock.json"
     
     # Run benchmark with lock files
@@ -53,7 +48,6 @@ run_package_install_benchmark() {
     } | tee "/app/results/package_install/$project/resource_usage.txt"
 }
 
-# Function to run benchmark for single package installation in bloated project
 run_single_package_install_benchmark() {
     echo "Running benchmark for bloated-project single package install"
     
@@ -83,15 +77,12 @@ run_single_package_install_benchmark() {
     } | tee "/app/results/package_install/bloated-project/resource_usage.txt"
 }
 
-# Array of projects to test
 projects=("nextjs" "svelte" "expo-react-native")
 
-# Run benchmarks for each project
 for project in "${projects[@]}"; do
     run_package_install_benchmark "$project"
 done
 
-# Run benchmarks for bloated project single package install
 run_single_package_install_benchmark
 
 echo "All package installation benchmarks completed. Results are saved in their respective directories under /app/results/package_install."

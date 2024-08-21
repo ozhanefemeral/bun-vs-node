@@ -8,7 +8,7 @@ BUN_IP="164.92.132.234"
 NODE_IP="64.226.107.21"
 PORT=6693
 
-# Assume we have 1,000,000 users (adjust this number if needed)
+# Assume we have 1,000,000 users (must be same with database records)
 MAX_USER_ID=1000000
 
 mkdir -p "/app/results/http"
@@ -51,16 +51,13 @@ run_http_benchmark() {
     echo "HTTP benchmark for $test_name completed. Results saved in /app/results/http/$test_name/"
 }
 
-# Ensure Bombardier is available
 if ! command -v bombardier &> /dev/null; then
     echo "Bombardier is not installed or not in PATH. Please check your Dockerfile and environment." >&2
     exit 1
 fi
 
-# Create main results directory
 mkdir -p "/app/results/http"
 
-# Run benchmarks for HTTP tests
 run_http_benchmark "static_file_index" "/index.html"
 run_http_benchmark "api_user_populated_random" "/api/user" "id="
 run_http_benchmark "api_movies_query_genre" "/api/movies" "genre=sci-fi"
