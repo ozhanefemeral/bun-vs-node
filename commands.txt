@@ -1,5 +1,34 @@
-# Build the Dockerfile for both Node.js and Bun
-docker build -f Dockerfile.both -t benchmark-test .
+# Test Environment Setup Commands
 
-# Run the container
-docker run --cpus=6 --memory=12g --rm -v $(pwd):/app benchmark-test bash /app/scripts/run_tests.sh
+1. Install Node.js 20.16.0
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt-get install -y nodejs=20.16.0-1nodesource1
+
+2. Install Bun 1.1.20
+curl -fsSL https://bun.sh/install | bash
+# Add Bun to PATH (you may want to add this to your .bashrc or .zshrc)
+export PATH=$HOME/.bun/bin:$PATH
+
+3. Install Go
+sudo apt-get update
+sudo apt-get install -y golang-go
+
+4. Install Bombardier
+go install github.com/codesenberg/bombardier@latest
+# Add Go binaries to PATH (you may want to add this to your .bashrc or .zshrc)
+export PATH=$HOME/go/bin:$PATH
+
+5. Install Hyperfine
+wget https://github.com/sharkdp/hyperfine/releases/download/v1.16.1/hyperfine_1.16.1_amd64.deb
+sudo dpkg -i hyperfine_1.16.1_amd64.deb
+
+# Verify installations
+node --version  # Should output v20.16.0
+bun --version   # Should output 1.1.20
+go version
+bombardier --version
+hyperfine --version
+
+# Note: Make sure to run these commands with appropriate permissions. 
+# You may need to use sudo for some commands that require elevated privileges.
+# For example, `chmod +x run_tests.sh` or read/write permissions for file operations.
