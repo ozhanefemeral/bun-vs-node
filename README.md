@@ -10,6 +10,7 @@ Node.js and Bun performance comparison across various programming tasks.
 - Hyperfine: 1.16.1
 - Bombardier: 1.4.0
 - Go: 1.19.4
+- Ubuntu: 24.04 LTS
 
 ## Project Structure
 
