@@ -60,7 +60,7 @@ bun run benchmark
 
 ## Benchmarking Tools
 
-This project uses [Hyperfine](https://github.com/sharkdp/hyperfine) for benchmarking, which is also installed in the Docker containers. For local bechmarks, you have to install it yourself. Same for Bombardier; which also requires Go to be installed.
+This project uses [Hyperfine](https://github.com/sharkdp/hyperfine) for benchmarking, which is also installed in the Docker containers. For local bechmarks, you have to install it yourself. Same for [Bombardier](https://github.com/codesenberg/bombardier); which also requires Go to be installed. You can find necessary commands in `commands.txt`.
 
 ## Results
 
