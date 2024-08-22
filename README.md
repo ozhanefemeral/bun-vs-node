@@ -8,7 +8,7 @@ Node.js and Bun performance comparison across various programming tasks.
 - Bun: 1.1.20
 - Docker: 20.10.8
 - Hyperfine: 1.16.1
-- Bombardier: 1.4.0
+- Bombardier: 1.2.6
 - Go: 1.19.4
 - Ubuntu: 24.04 LTS
 
