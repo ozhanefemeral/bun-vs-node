@@ -1,0 +1,39 @@
+# Ignore node_modules in the root and all subdirectories
+**/node_modules
+
+# Ignore test data
+test_data
+
+# Ignore unnecessary files in package_install projects
+tests/package_install/**/node_modules
+tests/package_install/**/.svelte-kit
+tests/package_install/**/.next
+tests/package_install/**/build
+tests/package_install/**/dist
+tests/package_install/**/.expo
+
+# Ignore common version control directories
+**/.git
+**/.svn
+**/.hg
+
+# Ignore log files and databases
+**/*.log
+**/*.sql
+**/*.sqlite
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore editor directories and files
+.idea
+.vscode
+*.swp
+*.swo
+
+# Ignore lock files (optional, depending on your needs)
+# **/package-lock.json
+# **/yarn.lock
+# **/pnpm-lock.yaml
+# **/bun.lockb
