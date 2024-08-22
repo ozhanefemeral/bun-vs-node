@@ -72,6 +72,6 @@ I am running the benchmarks on a Digital Ocean Droplet. It has 8GB of RAM and 4 
 
 HTTP Servers are also running on their own Droplets. They have 4GB of RAM and 2 dedicated CPUs. 25 GB of storage along with 2GBPs bandwidth.
 
-All droplets are located in Frankfurt and has Ubuntu 24.4 LTS.
+All droplets are located in Frankfurt and has Ubuntu 24.04 LTS.
 
 I have $200 credits in my Digital Ocean account thanks to Github Student Pack. It will eventually run out and I have to shut down the droplets.
