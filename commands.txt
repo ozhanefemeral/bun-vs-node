@@ -1,4 +1,4 @@
-# Build the Dockerfile for the both the bun runtimes in the same container
+# Build the Dockerfile for both Node.js and Bun
 docker build -f Dockerfile.both -t benchmark-test .
 
 # Run the container
