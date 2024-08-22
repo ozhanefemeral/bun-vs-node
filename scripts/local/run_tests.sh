@@ -23,4 +23,4 @@ echo "Running HTTP tests..."
 echo "Running package manager tests..."
 "$BASE_DIR"/run_package_manager_tests.sh
 
-echo "All tests completed. Results are saved in their respective directories under /app/results."
+echo "All tests completed. Results are saved in their respective directories under results."

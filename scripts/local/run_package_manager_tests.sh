@@ -21,8 +21,8 @@ run_package_install_benchmark() {
         --warmup 2 \
         --min-runs 20 \
         --prepare "$prepare_with_lock" \
-        --export-markdown "$BASE_DIR/results/package_install/local/$project/results_with_lock.md" \
-        --export-json "$BASE_DIR/results/package_install/local/$project/results_with_lock.json" \
+        --export-markdown "$BASE_DIR/results/package_install/$project/results_with_lock.md" \
+        --export-json "$BASE_DIR/results/package_install/$project/results_with_lock.json" \
         --show-output \
         "cd $BASE_DIR/tests/package_install/$project && bun install" \
         "cd $BASE_DIR/tests/package_install/$project && npm install"
@@ -32,8 +32,8 @@ run_package_install_benchmark() {
         --warmup 2 \
         --min-runs 20 \
         --prepare "$prepare_without_lock" \
-        --export-markdown "$BASE_DIR/results/package_install/local/$project/results_without_lock.md" \
-        --export-json "$BASE_DIR/results/package_install/local/$project/results_without_lock.json" \
+        --export-markdown "$BASE_DIR/results/package_install/$project/results_without_lock.md" \
+        --export-json "$BASE_DIR/results/package_install/$project/results_without_lock.json" \
         --show-output \
         "cd $BASE_DIR/tests/package_install/$project && bun install" \
         "cd $BASE_DIR/tests/package_install/$project && npm install"
@@ -65,8 +65,8 @@ run_single_package_install_benchmark() {
         --warmup 2 \
         --min-runs 20 \
         --prepare "$prepare_command" \
-        --export-markdown "$BASE_DIR/results/package_install/local/bloated-project/results.md" \
-        --export-json "$BASE_DIR/results/package_install/local/bloated-project/results.json" \
+        --export-markdown "$BASE_DIR/results/package_install/bloated-project/results.md" \
+        --export-json "$BASE_DIR/results/package_install/bloated-project/results.json" \
         --show-output \
         "cd $BASE_DIR/tests/package_install/bloated-project && bun add moment" \
         "cd $BASE_DIR/tests/package_install/bloated-project && npm install moment"

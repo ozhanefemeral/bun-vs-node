@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Get the directory of the current script
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+BASE_DIR="$(dirname "$(dirname "$SCRIPT_DIR")")"
+
 # Configuration
 CONNECTIONS=1250
 REQUESTS=1000000
@@ -11,7 +15,7 @@ PORT=6693
 # Assume we have 1,000,000 users (must be same with database records)
 MAX_USER_ID=1000000
 
-mkdir -p "/results/http"
+mkdir -p "$BASE_DIR/results/http"
 
 run_http_benchmark() {
     local test_name=$1
@@ -20,7 +24,7 @@ run_http_benchmark() {
     
     echo "Running benchmark for $test_name"
     
-    mkdir -p "/results/http/$test_name"
+    mkdir -p "$BASE_DIR/results/http/$test_name"
     
     local full_path="$path"
     if [[ -n "$query_params" ]]; then
@@ -39,16 +43,16 @@ run_http_benchmark() {
     fi
     
     # Run Bombardier for Bun (JSON output)
-    if ! bombardier -c $CONNECTIONS -n $REQUESTS -l -p r -o json "http://$BUN_IP:$PORT$bun_full_path" > "/results/http/$test_name/${test_name}_bun_bombardier.json" 2>&1; then
+    if ! bombardier -c $CONNECTIONS -n $REQUESTS -l -p r -o json "http://$BUN_IP:$PORT$bun_full_path" > "$BASE_DIR/results/http/$test_name/${test_name}_bun_bombardier.json" 2>&1; then
         echo "Error running Bombardier for Bun test: $test_name" >&2
     fi
     
     # Run Bombardier for Node (JSON output)
-    if ! bombardier -c $CONNECTIONS -n $REQUESTS -l -p r -o json "http://$NODE_IP:$PORT$node_full_path" > "/results/http/$test_name/${test_name}_node_bombardier.json" 2>&1; then
+    if ! bombardier -c $CONNECTIONS -n $REQUESTS -l -p r -o json "http://$NODE_IP:$PORT$node_full_path" > "$BASE_DIR/results/http/$test_name/${test_name}_node_bombardier.json" 2>&1; then
         echo "Error running Bombardier for Node test: $test_name" >&2
     fi
     
-    echo "HTTP benchmark for $test_name completed. Results saved in /results/http/$test_name/"
+    echo "HTTP benchmark for $test_name completed. Results saved in $BASE_DIR/results/http/$test_name/"
 }
 
 if ! command -v bombardier &> /dev/null; then
@@ -56,7 +60,7 @@ if ! command -v bombardier &> /dev/null; then
     exit 1
 fi
 
-mkdir -p "/results/http"
+mkdir -p "$BASE_DIR/results/http"
 
 run_http_benchmark "static_file_index" "/index.html"
 run_http_benchmark "api_user_populated_random" "/api/user" "id="
@@ -67,6 +71,6 @@ run_http_benchmark "api_movies_query_date" "/api/movies" "date=854541091"
 echo "All HTTP tests completed. Merging JSON results..."
 
 # Run the Node script to merge HTTP results
-node /utils/merge_http_results.js
+node "$BASE_DIR/utils/merge_http_results.js"
 
-echo "All HTTP tests completed and results processed. Results are saved in their respective directories under /results/http."
+echo "All HTTP tests completed and results processed. Results are saved in their respective directories under $BASE_DIR/results/http."
