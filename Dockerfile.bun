@@ -1,6 +1,3 @@
 FROM oven/bun:latest
-RUN apt-get update && apt-get install -y wget time
-RUN wget https://github.com/sharkdp/hyperfine/releases/download/v1.15.0/hyperfine_1.15.0_amd64.deb
-RUN dpkg -i hyperfine_1.15.0_amd64.deb
-WORKDIR /app
+WORKDIR /app/bun
 COPY . .
