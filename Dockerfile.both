@@ -7,12 +7,12 @@ RUN apt-get update && apt-get install -y \
     time \
     unzip
 
-# Install Node.js (specific version 20.16.0)
+# Install Node.js (v20.16.0)
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 RUN apt-get install -y nodejs=20.16.0-1nodesource1
 
-# Install Bun
-RUN curl -fsSL https://bun.sh/install | bash
+# Install Bun (v1.1.21)
+RUN curl -fsSL https://bun.sh/install | bash -s "bun-v1.1.21"
 
 # Install Hyperfine
 RUN wget https://github.com/sharkdp/hyperfine/releases/download/v1.15.0/hyperfine_1.15.0_amd64.deb
@@ -38,7 +38,7 @@ RUN chmod +x /app/scripts/*.sh
 ENV PATH="/root/.bun/bin:${PATH}"
 
 # Verify installations
-RUN node --version
+RUN node --version && npm --version
 RUN bun --version
 RUN hyperfine --version
 RUN bombardier --version
