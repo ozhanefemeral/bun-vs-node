@@ -28,5 +28,7 @@ mkdir -p "/app/results/basic"
 
 run_basic_benchmark "while_loop" "/app/tests/basic/while_loop.js"
 run_basic_benchmark "fibonacci" "/app/tests/basic/fibonacci.js"
+run_basic_benchmark "large_array" "/app/tests/basic/large_array.js"
+run_basic_benchmark "stringify" "/app/tests/basic/stringify.js"
 
 echo "Basic tests completed. Results are saved in their respective directories under /app/results."
