@@ -14,7 +14,8 @@
     "benchmark-http:local": "./scripts/local/run_http_tests.sh",
     "benchmark-http": "docker run --cpus=6 --memory=12g --rm -v $(pwd):/app benchmark-test bash /app/scripts/run_http_tests.sh",
     "benchmark-package:local": "./scripts/local/run_package_manager_tests.sh",
-    "benchmark-package": "docker run --cpus=6 --memory=12g --rm -v $(pwd):/app benchmark-test bash /app/scripts/run_package_manager_tests.sh"
+    "benchmark-package": "docker run --cpus=6 --memory=12g --rm -v $(pwd):/app benchmark-test bash /app/scripts/run_package_manager_tests.sh",
+    "benchmark-cold-start:local": "./scripts/local/run_cold_start_tests.sh"
   },
   "keywords": [],
   "author": "",
