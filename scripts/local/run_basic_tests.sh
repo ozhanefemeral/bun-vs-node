@@ -31,5 +31,7 @@ mkdir -p "$SCRIPT_DIR/../../results/basic"
 
 run_basic_benchmark "while_loop" "$SCRIPT_DIR/../../tests/basic/while_loop.js"
 run_basic_benchmark "fibonacci" "$SCRIPT_DIR/../../tests/basic/fibonacci.js"
+run_basic_benchmark "large_array" "$SCRIPT_DIR/../../tests/basic/large_array.js"
+run_basic_benchmark "stringify" "$SCRIPT_DIR/../../tests/basic/stringify.js"
 
 echo "Basic tests completed. Results are saved in their respective directories under /results."
