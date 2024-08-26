@@ -1,6 +1,9 @@
+import { join } from 'path';
 const numberOfFiles = 100000;
 const itemsPerFile = 5;
-const outputDir = '/app/test_data/small_files';
+
+const testDataPath = process.env.TEST_DATA_PATH || '/app/test_data';
+const directoryPath = join(testDataPath, 'small_files');
 
 function generateRandomItem() {
   return {
@@ -16,7 +19,7 @@ function generateRandomItem() {
 async function generateSmallFile(fileIndex) {
   const items = Array.from({ length: itemsPerFile }, generateRandomItem);
   const fileName = `data_${fileIndex.toString().padStart(4, '0')}.json`;
-  const filePath = `${outputDir}/${fileName}`;
+  const filePath = `${directoryPath}/${fileName}`;
   await Bun.write(filePath, JSON.stringify(items, null, 2));
 }
 
@@ -25,4 +28,4 @@ await Promise.all(
   Array.from({ length: numberOfFiles }, (_, i) => generateSmallFile(i))
 );
 console.timeEnd('JSON Generation');
-console.log(`Generated ${numberOfFiles} small JSON files in ${outputDir}`);
+console.log(`Generated ${numberOfFiles} small JSON files in ${directoryPath}`);

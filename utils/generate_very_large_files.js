@@ -1,7 +1,11 @@
-import { writeFileSync, createWriteStream } from 'node:fs';
-import { join } from 'node:path';
+import { writeFileSync, createWriteStream, mkdirSync } from 'node:fs';
+import { join } from 'path';
 
-const outputDir = '/app/test_data';
+const testDataPath = process.env.TEST_DATA_PATH || '/app/test_data';
+const outputDir = join(testDataPath, 'very_large_files');
+
+// Create the output directory if it doesn't exist
+mkdirSync(outputDir, { recursive: true });
 
 function getRandomName() {
   const names = ['John', 'Jane', 'Bob', 'Alice', 'Charlie', 'David', 'Eva', 'Frank', 'Grace', 'Henry'];
@@ -73,6 +77,6 @@ console.time('Generate Very Large CSV');
 generateLargeCSV('very_large_data.csv', oneGB);
 console.timeEnd('Generate Very Large CSV');
 
-console.time('Generate Very  Large JSON');
+console.time('Generate Very Large JSON');
 generateLargeJSON('very_large_data.json', oneGB);
 console.timeEnd('Generate Very Large JSON');

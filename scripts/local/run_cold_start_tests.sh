@@ -1,7 +1,7 @@
 #!/bin/bash
 
-BASE_DIR="$(pwd)"
-RESULTS_DIR="$BASE_DIR/results/cold_start"
+PROJECT_ROOT="$(pwd)"
+RESULTS_DIR="$PROJECT_ROOT/results/cold_start"
 
 mkdir -p "$RESULTS_DIR"
 

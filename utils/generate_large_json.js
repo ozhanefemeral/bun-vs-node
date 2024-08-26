@@ -1,5 +1,6 @@
-const outputDir = '/app/test_data';
-const filePath = `${outputDir}/large_data.json`;
+import path from 'path';
+const testDataPath = process.env.TEST_DATA_PATH || '/app/test_data';
+const filePath = path.join(testDataPath, 'large_data.json');
 
 async function generateData(count) {
   const file = Bun.file(filePath);

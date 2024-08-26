@@ -1,6 +1,8 @@
 import { readdir, readFile, writeFile } from 'fs/promises';
 import { join, basename } from 'path';
 
+const RESULTS_DIR = '/root/bun-vs-node/results/http';
+
 const mergeJsonResults = async (directory) => {
   try {
     const files = await readdir(directory);
@@ -43,12 +45,11 @@ const mergeJsonResults = async (directory) => {
 };
 
 const processAllHttpTests = async () => {
-  const httpResultsDir = '/app/results/http';
   try {
-    const testDirs = await readdir(httpResultsDir);
+    const testDirs = await readdir(RESULTS_DIR);
 
     for (const dir of testDirs) {
-      const fullPath = join(httpResultsDir, dir);
+      const fullPath = join(RESULTS_DIR, dir);
       await mergeJsonResults(fullPath);
     }
   } catch (error) {
