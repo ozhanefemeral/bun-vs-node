@@ -1,66 +1,78 @@
 # Node.js vs Bun Performance Benchmark
 
-## Goal
+Node.js and Bun performance comparison across various programming tasks.
 
-This project aims to compare the performance of Node.js and Bun runtimes across various common programming tasks. By running identical scenarios on both runtimes, we can gain insights into their relative strengths and weaknesses. 
+## Tools & Versions
+
+- Node.js: 20.16.0
+- Bun: 1.1.20
+- Docker: 20.10.8
+- Hyperfine: 1.16.1
+- Bombardier: 1.2.6
+- Go: 1.19.4
+- Ubuntu: 24.04 LTS
 
 ## Project Structure
 
-- `Dockerfile.bun`: Docker configuration for Bun environment
-- `Dockerfile.node`: Docker configuration for Node.js environment
-- `tests/basic/`: Directory containing test scripts
-  - `while_loop.js`: Simple while loop test
-  - `fibonacci.js`: Recursive Fibonacci calculation test
-- `run_tests.sh`: Script to run benchmarks in Docker containers
-- `hyperfine-commands.txt`: File storing useful Hyperfine commands
+- `Dockerfile.both`: Docker configuration for both Bun and Node.js environments
+- `tests/`: Directory containing test scripts for various categories
+  - `basic/`: Basic operation tests (e.g., while loops, Fibonacci calculation)
+  - `file/`: File operation tests
+  - `http/`: HTTP server tests
+  - `package_install/`: Package manager performance tests
+- `scripts/`: Scripts to run benchmarks
+  - `local/`: Scripts for running tests on local machine
+  - Root level scripts: For running tests in Docker containers
+- `utils/`: Utility scripts for generating test data
 
 ## Running Benchmarks
 
 ### Prerequisites
 
-You should run generate_large_json.js to create a large JSON file for the tests. This file is not included in the repository due to its size. 
-
-```bash
-node generate_large_json.js
-# or
-bun generate_large_json.js
-```
+Before running the benchmarks, you need to build the Docker image from Dockerfile.both:
 
 To run the benchmarks, use the following commands:
 
 ```bash
+bun run benchmark # Run all benchmarks on Docker
+bun run benchmark:local # Run all benchmarks on local machine
+bun run benchmark-basic
+bun run benchmark-basic:local
+# and so on... Check package.json for more commands
+```
+
 # Build the Docker images
 
-# Building only the last image is enough for running the tests
+Building only the `Dockerfile.both` is enough for running the tests on Docker. Other Dockerfiles are there just for reference.
 
-docker build -f Dockerfile.bun -t bun-test .
-docker build -f Dockerfile.node -t node-test .
+```bash
 docker build -f Dockerfile.both -t benchmark-test .
+```
 
 # Run the tests
 
-# Feel free to change the CPU and memory values, or use different images
+Feel free to change the CPU and memory values, or use different images
+
+```bash
 docker run --cpus=6 --memory=12g --rm -v $(pwd):/app benchmark-test bash /app/run_tests.sh
+# or use benchmark command, but keep in mind that will use the default values for CPU and memory
+bun run benchmark
 ```
 
-Or you can adjust the cpu and the memory allocated to the Docker.
+## Benchmarking Tools
 
-```
-docker run \
-  --cpus=6 \
-  --memory=24g \
-  --rm \
-  -v $(pwd):/app \
-  benchmark-test \
-  bash /app/run_tests.sh`
-```
-
-These commands are also stored in `commands.txt`. Bulding the Dockerfiles before running tests is necessary.
-
-## Benchmarking Tool
-
-This project uses [Hyperfine](https://github.com/sharkdp/hyperfine) for benchmarking, which is installed in the Docker containers.
+This project uses [Hyperfine](https://github.com/sharkdp/hyperfine) for benchmarking, which is also installed in the Docker containers. For local bechmarks, you have to install it yourself. Same for [Bombardier](https://github.com/codesenberg/bombardier); which also requires Go to be installed. You can find necessary commands in `commands.txt`.
 
 ## Results
 
-Benchmark results are saved as Markdown files in the `tests/basic/` directory. Resource usage data is saved as text files in the same location.
+Benchmark results are saved as Markdown and JSON files in the results/ directory, organized by test category. Resource usage data is saved as text files in the same location.
+
+## Notes
+
+I am running the benchmarks on a Digital Ocean Droplet. It has 8GB of RAM and 4 dedicated CPUs. 50 GB of storage along with 2GBPs bandwidth.
+
+HTTP Servers are also running on their own Droplets. They have 4GB of RAM and 2 dedicated CPUs. 25 GB of storage along with 2GBPs bandwidth.
+
+All droplets are located in Frankfurt and has Ubuntu 24.04 LTS.
+
+I have $200 credits in my Digital Ocean account thanks to Github Student Pack. It will eventually run out and I have to shut down the droplets.
