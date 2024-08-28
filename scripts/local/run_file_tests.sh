@@ -24,7 +24,7 @@ run_file_benchmark() {
     
     hyperfine \
         --warmup 3 \
-        --min-runs 10 \
+        --min-runs 100 \
         --export-markdown "$RESULTS_DIR/$test_category/${test_name}_results.md" \
         --export-json "$RESULTS_DIR/$test_category/${test_name}_results.json" \
         --show-output \
