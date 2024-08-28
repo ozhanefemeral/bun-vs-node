@@ -6,6 +6,7 @@ RESULTS_DIR="$PROJECT_ROOT/results/http"
 
 CONNECTIONS=1250
 REQUESTS=100000
+TIMEOUT="30s"
 
 BUN_IP="164.92.132.234"
 NODE_IP="64.226.107.21"
@@ -42,7 +43,7 @@ run_http_benchmark() {
         node_full_path=$full_path
     fi
     
-    local bombardier_args="-c $CONNECTIONS -n $REQUESTS -l -p r -o json"
+    local bombardier_args="-c $CONNECTIONS -n $REQUESTS -l -p r -o json -t $TIMEOUT"
     if [[ "$method" == "POST" ]]; then
         bombardier_args="$bombardier_args -m POST -f $data"
     fi
