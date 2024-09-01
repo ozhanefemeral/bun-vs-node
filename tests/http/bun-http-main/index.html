@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Database Showcase</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f4f4f4;
+      }
+      header {
+        background-color: #35424a;
+        color: #ffffff;
+        padding-top: 30px;
+        min-height: 70px;
+        border-bottom: #e8491d 3px solid;
+        text-align: center;
+      }
+      header h1 {
+        margin: 0;
+        padding-bottom: 20px;
+      }
+      .container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+      .main-content {
+        flex: 2;
+        background: #ffffff;
+        padding: 20px;
+        margin-right: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .sidebar {
+        flex: 1;
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+        margin-bottom: 20px;
+      }
+      .button {
+        display: inline-block;
+        background: #e8491d;
+        color: #ffffff;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: 10px;
+      }
+      .button:hover {
+        background: #ff6a3c;
+      }
+      footer {
+        background-color: #35424a;
+        color: #ffffff;
+        text-align: center;
+        padding: 20px;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Movie Database Showcase</h1>
+    </header>
+
+    <div class="container">
+      <main class="main-content">
+        <h2>Welcome to Our Movie Database</h2>
+        <p>
+          Discover a world of cinema at your fingertips. Our extensive movie
+          database offers a comprehensive collection of films from various
+          genres, eras, and cultures.
+        </p>
+        <img src="/image1.jpg" alt="Collage of movie posters" />
+        <p>
+          Whether you're a casual viewer or a dedicated cinephile, our platform
+          provides detailed information about movies, including cast, crew,
+          ratings, and reviews. Explore new releases, revisit classics, and find
+          hidden gems you might have missed.
+        </p>
+        <a href="#" class="button">Explore Movies</a>
+      </main>
+
+      <aside class="sidebar">
+        <h3>Featured Content</h3>
+        <img src="/image2.jpg" alt="Featured movie of the month" />
+        <p>
+          Check out our movie of the month and dive into exclusive content,
+          behind-the-scenes footage, and interviews with your favorite stars.
+        </p>
+        <a href="#" class="button">Learn More</a>
+      </aside>
+    </div>
+
+    <footer>
+      <p>&copy; 2024 Movie Database Showcase. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
