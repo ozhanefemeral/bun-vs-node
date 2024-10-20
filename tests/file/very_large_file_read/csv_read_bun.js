@@ -1,4 +1,8 @@
-const filePath = '/app/test_data/very_large_data.csv';
+import { join } from 'path';
+
+const testDataPath = process.env.TEST_DATA_PATH || '/app/test_data';
+const directoryPath = join(testDataPath, 'very_large_files');
+const filePath = join(directoryPath, 'very_large_data.csv')
 
 async function readLargeCSV() {
   const file = Bun.file(filePath);
