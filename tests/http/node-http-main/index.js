@@ -2,14 +2,9 @@ import { createServer } from 'http';
 import { promises as fs } from 'fs';
 import { join } from 'path';
 import { and, eq, like, sql } from "drizzle-orm";
-import Database from 'better-sqlite3';
-import { drizzle } from 'drizzle-orm/better-sqlite3';
+import { db } from "./db.js"
 
-// Assuming you have a schema.js file with your schema definitions
 import { movies, userFavorites, users } from "./schema.js";
-
-const sqlite = new Database("sqlite.db");
-const db = drizzle(sqlite);
 
 const server = createServer(async (req, res) => {
   try {
@@ -84,7 +79,6 @@ const server = createServer(async (req, res) => {
           }
           return;
         }
-
         if (url.pathname === "/api/user") {
           const userId = params.get("id");
           if (!userId) {
@@ -127,7 +121,6 @@ const server = createServer(async (req, res) => {
           return;
         }
       }
-
       if (req.method === "POST" && url.pathname === "/api/movies") {
         let body = '';
         req.on('data', chunk => {
@@ -163,7 +156,6 @@ const server = createServer(async (req, res) => {
         return;
       }
     }
-
     res.writeHead(404, { 'Content-Type': 'text/plain' });
     res.end('Not Found');
   } catch (error) {
