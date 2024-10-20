@@ -46,6 +46,9 @@ const server = serve({
               | "sci-fi"
               | "adventure"
               | "horror"
+              const limit = parseInt(params.get("limit") || "20");
+              const page = parseInt(params.get("page") || "1");
+              const offset = (page - 1) * limit;
               
             let conditions = [];
 
@@ -60,13 +63,14 @@ const server = serve({
             }
 
             const results = await db
-              .select()
-              .from(movies)
-              .where(and(...conditions));
+            .select()
+            .from(movies)
+            .where(and(...conditions))
+            .limit(limit)
+            .offset(offset);
 
             return Response.json(results);
           }
-
           if (url.pathname === "/api/user") {
             const userId = params.get("id");
             if (!userId) {
@@ -123,7 +127,6 @@ const server = serve({
           }
         }
       }
-
       return new Response("Not Found", { status: 404 });
     } catch (error) {
       console.error("Unhandled server error:", error);
